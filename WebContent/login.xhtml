@@ -18,22 +18,50 @@
 			background-color:#4fd8e8;
 			background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.3));
 		}
+		#divCadastro{
+			text-align: center;
+			background-color:#d3d3d3;
+		}
 	</style>
 </h:head>
 <h:body>
 	<div id="divLogin">	
-		<form method="post" action="j_security_check">
+		<form>
 			<h:panelGrid columns="5">
 
 		    	<h:outputLabel value="Email:" for="email"/>
 				<h:inputText value="#{logonBean.email}" id="email" required="true"/>
 				
 				<h:outputLabel value="Senha:" for="senha"/>
-				<h:inputText value="#{logonBean.senha}" id="senha" required="true" />
+				<h:inputSecret value="#{logonBean.senha}" id="senha" required="true" />
 
 				<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
            	</h:panelGrid>			
 		</form>
 	</div>
+	<div id="divCadastro">	
+		<form>
+			<h:panelGrid columns="1">
+				<h1>CADASTRE-SE</h1>
+		    	
+		    	<h:outputLabel value="Nome:" for="nome"/>
+				<h:inputText value="#{cadastroBean.nome}" id="nome" size="50" maxlength="200" required="true"/>
+
+		    	<h:outputLabel value="Email:" for="email"/>
+				<h:inputText value="#{cadastroBean.email}" id="email" size="50" maxlength="200" required="true"/>
+				
+				<h:outputLabel value="Confirmação do Email:" for="confirmacaoEmail"/>
+				<h:inputText value="#{cadastroBean.confirmacaoEmail}" id="confirmacaoEmail" size="50" maxlength="200" required="true"/>
+
+				<h:outputLabel value="Senha:" for="senha"/>
+				<h:inputSecret value="#{cadastroBean.senha}" id="senha" size="50" maxlength="100" required="true"/>				
+
+				<h:outputLabel value="Dia" for="dia"/>
+												
+				
+
+				<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
+           	</h:panelGrid>			
+		</form>
 </h:body>
 </html>
