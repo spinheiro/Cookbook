@@ -2,15 +2,23 @@ package bean;
 
 import javax.faces.bean.ManagedBean;
 
+import service.UsuarioService;
+
 @ManagedBean
-public class LogonBean {
+public class LogonBean extends EnttyManagerBean{
 
 	private String email;
 	private String senha;
 	
 	public String autenticar(){
+		UsuarioService usuarioService = new UsuarioService(getEntityManager());
+		
+		if (usuarioService.autenticar(email, senha))
+			return "OK";
+		
 		return "";
 	}
+	
 	public String getEmail() {
 		return email;
 	}

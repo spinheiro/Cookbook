@@ -26,25 +26,27 @@
 </h:head>
 <h:body>
 	<div id="divLogin">	
-		<form>
-			<h:panelGrid columns="5">
-
-		    	<h:outputLabel value="Email:" for="email"/>
-				<h:inputText value="#{logonBean.email}" id="email" required="true"/>
-				
-				<h:outputLabel value="Senha:" for="senha"/>
-				<h:inputSecret value="#{logonBean.senha}" id="senha" required="true" />
-
-				<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
+		
+		<h:form>
+			<h:panelGrid columns="5" style="text-align: center">  
+				<h:panelGroup>
+			    	<h:outputLabel value="Email:" for="email"/>
+					<h:inputText value="#{logonBean.email}" id="email" required="true"/>
+					
+					<h:outputLabel value="Senha:" for="senha"/>
+					<h:inputSecret value="#{logonBean.senha}" id="senha" required="true" />
+	
+					<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
+				</h:panelGroup>
            	</h:panelGrid>			
-		</form>
+		</h:form>
 	</div>
 	<div id="divCadastro">	
-		<form>
+		<h:form>
 			<h:panelGrid columns="1">
 				<h1>CADASTRE-SE</h1>
-		    	
-		    	<h:outputLabel value="Nome:" for="nome"/>
+			    
+			    <h:outputLabel value="Nome:" for="nome"/>
 				<h:inputText value="#{cadastroBean.nome}" id="nome" size="50" maxlength="200" required="true"/>
 
 		    	<h:outputLabel value="Email:" for="email"/>
@@ -54,14 +56,30 @@
 				<h:inputText value="#{cadastroBean.confirmacaoEmail}" id="confirmacaoEmail" size="50" maxlength="200" required="true"/>
 
 				<h:outputLabel value="Senha:" for="senha"/>
-				<h:inputSecret value="#{cadastroBean.senha}" id="senha" size="50" maxlength="100" required="true"/>				
+				<h:inputSecret value="#{cadastroBean.senha}" id="senha" size="50" maxlength="100" required="true"/>
 
-				<h:outputLabel value="Dia" for="dia"/>
-												
+				<h:outputLabel value="Data de Nascimento:" for="dataNascimento"/>
+		    	<h:panelGroup>
+		    		<h:selectOneMenu value="#{cadastroBean.dia}">
+		    			<f:selectItems value="#{cadastroBean.dias}"/>	
+		    		</h:selectOneMenu>
+		    		<h:selectOneMenu value="#{cadastroBean.mes}">
+		    			<f:selectItems value="#{cadastroBean.meses}"/>	
+		    		</h:selectOneMenu>
+		    		<h:selectOneMenu value="#{cadastroBean.ano}">
+		    			<f:selectItems value="#{cadastroBean.anos}"/>	
+		    		</h:selectOneMenu>
+				</h:panelGroup>>
 				
+				<h:outputLabel value="sexo:" for="sexo"/>
+				<h:selectOneRadio value="#{cadastroBean.sexo}" id="sexo">
+					<f:selectItem itemValue="M" itemLabel="Masculino"/>
+					<f:selectItem itemValue="F" itemLabel="Feminino"/>
+				</h:selectOneRadio>				
 
-				<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
+				<h:commandButton value="Cadastrar" action="#{cadastroBean.cadastrar}"/>
            	</h:panelGrid>			
-		</form>
+		</h:form>
+	</div>
 </h:body>
 </html>

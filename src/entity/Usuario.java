@@ -27,6 +27,10 @@ public class Usuario {
 	@Column(name = "dataNascimento", nullable = false)
 	private Calendar dataNascimento;
 
+	public Usuario() {
+		super();
+	}
+
 	public Usuario(Integer id, String nome, String email, String senha,	String sexo, Calendar dataNascimento) {
 		super();
 		this.id = id;
