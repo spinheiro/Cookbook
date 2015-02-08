@@ -22,11 +22,13 @@
 			text-align: center;
 			background-color:#d3d3d3;
 		}
+		.erro{
+			color: red;
+		}
 	</style>
 </h:head>
 <h:body>
 	<div id="divLogin">	
-		
 		<h:form>
 			<h:panelGrid columns="5" style="text-align: center">  
 				<h:panelGroup>
@@ -37,6 +39,9 @@
 					<h:inputSecret value="#{logonBean.senha}" id="senha" required="true" />
 	
 					<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
+					<c:if test="${not empty logonBean.falhaLogin}" >
+						<div class="erro">${logonBean.falhaLogin}</div>		
+					</c:if>
 				</h:panelGroup>
            	</h:panelGrid>			
 		</h:form>
@@ -54,6 +59,9 @@
 				
 				<h:outputLabel value="Confirmação do Email:" for="confirmacaoEmail"/>
 				<h:inputText value="#{cadastroBean.confirmacaoEmail}" id="confirmacaoEmail" size="50" maxlength="200" required="true"/>
+				<c:if test="${not empty cadastroBean.msgConfirmacaoEmail}" >
+					<div class="erro">${cadastroBean.msgConfirmacaoEmail}</div>		
+				</c:if>
 
 				<h:outputLabel value="Senha:" for="senha"/>
 				<h:inputSecret value="#{cadastroBean.senha}" id="senha" size="50" maxlength="100" required="true"/>
@@ -78,6 +86,9 @@
 				</h:selectOneRadio>				
 
 				<h:commandButton value="Cadastrar" action="#{cadastroBean.cadastrar}"/>
+				<c:if test="${not empty cadastroBean.msgCadastroInvalido}" >
+					<div class="erro">${cadastroBean.msgCadastroInvalido}</div>		
+				</c:if>
            	</h:panelGrid>			
 		</h:form>
 	</div>

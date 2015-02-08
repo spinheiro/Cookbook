@@ -9,14 +9,17 @@ public class LogonBean extends EnttyManagerBean{
 
 	private String email;
 	private String senha;
+	private String falhaLogin;
 	
 	public String autenticar(){
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
+		
 		if (usuarioService.autenticar(email, senha))
 			return "OK";
 		
-		return "";
+		falhaLogin = "Login inválido";
+		return "login";
 	}
 	
 	public String getEmail() {
@@ -30,5 +33,13 @@ public class LogonBean extends EnttyManagerBean{
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getFalhaLogin() {
+		return falhaLogin;
+	}
+
+	public void setFalhaLogin(String falhaLogin) {
+		this.falhaLogin = falhaLogin;
 	}
 }

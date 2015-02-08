@@ -21,21 +21,35 @@ public class CadastroBean extends EnttyManagerBean{
 	private Integer mes;
 	private Integer ano;	
 	private String sexo;
+	private String msgConfirmacaoEmail;
+	private String msgCadastroInvalido;
 	
 	public String cadastrar(){
 		
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
+		if(!email.equals(confirmacaoEmail)){
+			msgConfirmacaoEmail = "Confirmação de email não confere.";
+			return "login";
+		}
+		
+		Usuario usuario = new Usuario(null, nome, confirmacaoEmail, senha, sexo, populaDataNascimento());
+		
+		try {
+			usuarioService.inserir(usuario);
+		} catch (Exception e) {
+			msgCadastroInvalido = "Ocorreu umerro em seu cadastro.";
+		}
+		
+		return "login";
+	}
+
+	private Calendar populaDataNascimento() {
 		Calendar dataNascimento = Calendar.getInstance();
 		dataNascimento.set(Calendar.DATE, dia);
 		dataNascimento.set(Calendar.MONTH, mes);
 		dataNascimento.set(Calendar.YEAR, ano);
-		
-		Usuario usuario = new Usuario(null, nome, confirmacaoEmail, senha, sexo, dataNascimento);
-		
-		usuarioService.inserir(usuario);
-		
-		return "login";
+		return dataNascimento;
 	}
 	
 	public List<Integer> getDias(){
@@ -116,6 +130,22 @@ public class CadastroBean extends EnttyManagerBean{
 	}
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	public String getMsgConfirmacaoEmail() {
+		return msgConfirmacaoEmail;
+	}
+
+	public void setMsgConfirmacaoEmail(String msgConfirmacaoEmail) {
+		this.msgConfirmacaoEmail = msgConfirmacaoEmail;
+	}
+
+	public String getMsgCadastroInvalido() {
+		return msgCadastroInvalido;
+	}
+
+	public void setMsgCadastroInvalido(String msgCadastroInvalido) {
+		this.msgCadastroInvalido = msgCadastroInvalido;
 	}
 }
 
