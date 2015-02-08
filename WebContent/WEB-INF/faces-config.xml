@@ -9,12 +9,18 @@
 		<managed-bean-name>logonBean</managed-bean-name>
 		<managed-bean-class>bean.LogonBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>>
+	</managed-bean>
 	
 	<managed-bean>
 		<managed-bean-name>cadastroBean</managed-bean-name>
 		<managed-bean-class>bean.CadastroBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>receitaBean</managed-bean-name>
+		<managed-bean-class>bean.ReceitaBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

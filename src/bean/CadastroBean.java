@@ -148,4 +148,3 @@ public class CadastroBean extends EnttyManagerBean{
 		this.msgCadastroInvalido = msgCadastroInvalido;
 	}
 }
-

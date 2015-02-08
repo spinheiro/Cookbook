@@ -14,9 +14,8 @@ public class LogonBean extends EnttyManagerBean{
 	public String autenticar(){
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
-		
 		if (usuarioService.autenticar(email, senha))
-			return "OK";
+			return "home";
 		
 		falhaLogin = "Login inválido";
 		return "login";

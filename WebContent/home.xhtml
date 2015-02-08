@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" lang="en">
+<h:head>
+	<style type="text/css">
+		body{
+			margin: 0px;
+			background-color: #d3d3d3;
+		}
+		#divPesquisa{
+			text-align: center;
+			background-color:#4fd8e8;
+		}
+		#divCadastro{
+			text-align: center;
+			background-color:#d3d3d3;
+		}
+		.erro{
+			color: red;
+		}
+	</style>
+</h:head>
+<h:body>
+		<div id="divPesquisa">
+			<h:form>
+				<h:panelGrid columns="4" style="text-align: center">  
+					<h:outputLabel value="COOKBOOK" style="color:white;text-align:left;width:250px;font-size:70"/></br>
+					<h:panelGroup>
+						<h:outputLabel value="Pesquisar Reseita" for="pesquisar" style="text-align:left; vertical-align: text-bottom; width: 238px; "/>
+						<h:panelGroup>
+							<h:inputText value="#{receitaBean.pesquisa}" id="pesquisar"/>
+							<h:commandButton value="Buscar" action="#{receitaBean.pesquisar}" style="height: 28px; width: 76px; " />
+						</h:panelGroup>
+						</h:panelGroup>
+						
+	           	</h:panelGrid>
+           	</h:form>	
+		</div>
+	<div id="divCadastro">	
+		<h:form>
+			<h:panelGrid columns="1">
+				<h1>NOVA RECEITA</h1>
+			    
+			    <h:outputLabel value="Título:" for="titulo"/>
+				<h:inputText value="#{receitaBan.titulo}" id="titulo" size="50" maxlength="200" required="true"/>
+
+		    	<h:outputLabel value="Texto da Receita:" for="textoReceita"/>
+				<h:inputTextarea value="#{receitaBan.taxtoReceita}" id="textoReceita" required="true" style="width: 375px; height: 150px; "/>
+
+           	</h:panelGrid>			
+			<h:panelGrid columns="1" style="text-align:right; width: 500px; "">
+				<h:commandButton value="Postar" action="#{receitaBean.postar}" style="height:30px; width:100px; horizontal-align:left;"/>
+           	</h:panelGrid>			
+		</h:form>
+	</div>
+</h:body>
+</html>
