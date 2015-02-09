@@ -1,6 +1,11 @@
 package bean;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import javax.faces.bean.ManagedBean;
+
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean
 public class ReceitaBean extends EnttyManagerBean {
@@ -8,11 +13,18 @@ public class ReceitaBean extends EnttyManagerBean {
 	private String textoReceita;
 	private String imagem;
 	private String pesquisa;
+	private UploadedFile file;
 	
 	public String postar(){
+		try {
+			InputStream teste = file.getInputstream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "OK";
 	}
-	
 	public String pesquisar(){
 		return "home";
 	}
@@ -44,5 +56,13 @@ public class ReceitaBean extends EnttyManagerBean {
 
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
 	}
 }
