@@ -1,11 +1,16 @@
 package bean;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-
-import org.primefaces.model.UploadedFile;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+import javax.servlet.http.Part;
 
 @ManagedBean
 public class ReceitaBean extends EnttyManagerBean {
@@ -13,17 +18,32 @@ public class ReceitaBean extends EnttyManagerBean {
 	private String textoReceita;
 	private String imagem;
 	private String pesquisa;
-	private UploadedFile file;
+	private Part file;
 	
 	public String postar(){
 		try {
-			InputStream teste = file.getInputstream();
+			imagem = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return "OK";
+	}
+	
+	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
+		List<FacesMessage> msgs = new ArrayList<FacesMessage>();
+		Part file = (Part)value;
+		
+		if (file.getSize() > 1024) {
+			msgs.add(new FacesMessage("file too big"));
+		}
+		if (!"text/plain".equals(file.getContentType())) {
+			msgs.add(new FacesMessage("not a text file"));
+		}
+		if (!msgs.isEmpty()) {
+			throw new ValidatorException(msgs);
+		}
 	}
 	public String pesquisar(){
 		return "home";
@@ -57,12 +77,11 @@ public class ReceitaBean extends EnttyManagerBean {
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
 	}
-
-	public UploadedFile getFile() {
+	public Part getFile() {
 		return file;
 	}
-
-	public void setFile(UploadedFile file) {
+	public void setFile(Part file) {
 		this.file = file;
 	}
+
 }

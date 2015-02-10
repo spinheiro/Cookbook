@@ -38,26 +38,24 @@
           	</h:form>	
 	<div id="divCadastro">	
 		<h:form>
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="1" style="text-align:center; width: 100%; background-color:#d3d3d3;">
 				<h1>NOVA RECEITA</h1>
 			    
 			    <h:outputLabel value="Título:" for="titulo"/>
-				<h:inputText value="#{receitaBan.titulo}" id="titulo" size="50" maxlength="200" required="true"/>
+				<h:inputText value="#{receitaBan.titulo}" id="titulo" size="50" maxlength="200" required="true" style="width: 500px;"/>
 
 		    	<h:outputLabel value="Texto da Receita:" for="textoReceita"/>
-				<h:inputTextarea value="#{receitaBan.taxtoReceita}" id="textoReceita" required="true" style="width: 375px; height: 150px; "/>
+				<h:inputTextarea value="#{receitaBan.taxtoReceita}" id="textoReceita" required="true" style="width: 500px; height: 150px;"/>
 
            	</h:panelGrid>			
-			<h:panelGrid columns="1" style="text-align:right; width: 500px;">
+			<h:panelGrid columns="1" style="text-align:right; width: 500px;display: inline-table;">
 				<h:commandButton value="Postar" action="#{receitaBean.postar}" style="height:30px; width:100px; horizontal-align:left;"/>
            	</h:panelGrid>			
 		</h:form>
 	</div>
 		<h:form enctype="multipart/form-data">
-	        <p:messages showDetail="true" />
- 	        <p:fileUpload value="#{receitaBean.file}" mode="simple" />
- 	        <p:commandButton value="Submit" ajax="false" actionListener="#{receitaBean.postar}" />
- 	        <h:graphicImage id="image" alt="uploaded image" url="/image"/>
+	        <h:inputFile id="file" value="#{receitaBean.file}"/>
+  			<h:commandButton value="Upload" action="#{receitaBean.postar}" validator="#{receitaBean.validateFile}"/>
      	</h:form>
 </h:body>
 </html>
