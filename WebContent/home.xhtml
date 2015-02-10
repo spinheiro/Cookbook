@@ -13,10 +13,6 @@
 			margin: 0px;
 			background-color: #d3d3d3;
 		}
-		#divPesquisa{
-			text-align: center;
-			background-color:#4fd8e8;
-		}
 		#divCadastro{
 			text-align: center;
 			background-color:#d3d3d3;
@@ -27,21 +23,19 @@
 	</style>
 </h:head>
 <h:body>
-		<div id="divPesquisa">
-			<h:form>
-				<h:panelGrid columns="4" style="text-align: center">  
-					<h:outputLabel value="COOKBOOK" style="color:white;text-align:left;width:250px;font-size:70"/></br>
+		<h:form>
+			<h:panelGrid columns="4" style="height:120px; width:100%; background-color:navy;">  
+				<h:outputLabel value="COOKBOOK" style="display: inline-table;text-align:right !important;color:white;width:95%;font-size:100px !important"/>
+				<h:panelGroup style="display: inline-table;text-align:left !important;color:white;width:100%;">
+					<h:outputLabel value="Pesquisar Reseita" for="pesquisar" style="display: inline-table;text-align:left !important;color:white;width:80%;"/>
 					<h:panelGroup>
-						<h:outputLabel value="Pesquisar Reseita" for="pesquisar" style="text-align:left; vertical-align: text-bottom; width: 238px; "/>
-						<h:panelGroup>
-							<h:inputText value="#{receitaBean.pesquisa}" id="pesquisar"/>
-							<h:commandButton value="Buscar" action="#{receitaBean.pesquisar}" style="height: 28px; width: 76px; " />
-						</h:panelGroup>
-						</h:panelGroup>
-						
-	           	</h:panelGrid>
-           	</h:form>	
-		</div>
+						<h:inputText value="#{receitaBean.pesquisa}" id="pesquisar"/>
+					</h:panelGroup>
+					<h:commandButton value="Buscar" action="#{receitaBean.pesquisar}" style="height: 28px; width: 76px; " />
+				</h:panelGroup>
+					
+           	</h:panelGrid>
+          	</h:form>	
 	<div id="divCadastro">	
 		<h:form>
 			<h:panelGrid columns="1">
@@ -54,7 +48,7 @@
 				<h:inputTextarea value="#{receitaBan.taxtoReceita}" id="textoReceita" required="true" style="width: 375px; height: 150px; "/>
 
            	</h:panelGrid>			
-			<h:panelGrid columns="1" style="text-align:right; width: 500px; "">
+			<h:panelGrid columns="1" style="text-align:right; width: 500px;">
 				<h:commandButton value="Postar" action="#{receitaBean.postar}" style="height:30px; width:100px; horizontal-align:left;"/>
            	</h:panelGrid>			
 		</h:form>

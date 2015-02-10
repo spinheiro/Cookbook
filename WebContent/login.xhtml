@@ -13,14 +13,15 @@
 			margin: 0px;
 			background-color: #d3d3d3;
 		}
-		#divLogin{
-			text-align: center;
-			background-color:#4fd8e8;
-			background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.3));
+		.label{
+			width: 500px; 
+			text-align: left !important;
+			display: inline-table;
 		}
-		#divCadastro{
-			text-align: center;
-			background-color:#d3d3d3;
+		.imputs{
+			width: 500px; 
+			text-align: left !important;
+			display: inline-table;
 		}
 		.erro{
 			color: red;
@@ -28,9 +29,8 @@
 	</style>
 </h:head>
 <h:body>
-	<div id="divLogin">	
 		<h:form>
-			<h:panelGrid columns="5" style="text-align: center">  
+			<h:panelGrid columns="5" style="text-align: center;  height: 120px; width: 100%; background-color:navy;">  
 				<h:panelGroup>
 			    	<h:outputLabel value="Email:" for="email"/>
 					<h:inputText value="#{logonBean.email}" id="email" required="true"/>
@@ -45,52 +45,48 @@
 				</h:panelGroup>
            	</h:panelGrid>			
 		</h:form>
-	</div>
-	<div id="divCadastro">	
 		<h:form>
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="1" style="text-align:center; width: 100%; background-color:#d3d3d3;">
 				<h1>CADASTRE-SE</h1>
 			    
-			    <h:outputLabel value="Nome:" for="nome"/>
-				<h:inputText value="#{cadastroBean.nome}" id="nome" size="50" maxlength="200" required="true"/>
+			    <h:outputLabel value="Nome:" for="nome" styleClass="label"/>
+				<h:inputText value="#{cadastroBean.nome}" id="nome" size="50" maxlength="200" required="true" styleClass="imputs"/>
 
-		    	<h:outputLabel value="Email:" for="email"/>
-				<h:inputText value="#{cadastroBean.email}" id="email" size="50" maxlength="200" required="true"/>
+		    	<h:outputLabel value="Email:" for="email" styleClass="label"/>
+				<h:inputText value="#{cadastroBean.email}" id="email" size="50" maxlength="200" required="true" styleClass="imputs"/>
 				
-				<h:outputLabel value="Confirmação do Email:" for="confirmacaoEmail"/>
-				<h:inputText value="#{cadastroBean.confirmacaoEmail}" id="confirmacaoEmail" size="50" maxlength="200" required="true"/>
+				<h:outputLabel value="Confirmação do Email:" for="confirmacaoEmail" styleClass="label"/>
+				<h:inputText value="#{cadastroBean.confirmacaoEmail}" id="confirmacaoEmail" size="50" maxlength="200" required="true" styleClass="imputs"/>
 				<c:if test="${not empty cadastroBean.msgConfirmacaoEmail}" >
 					<div class="erro">${cadastroBean.msgConfirmacaoEmail}</div>		
 				</c:if>
 
-				<h:outputLabel value="Senha:" for="senha"/>
-				<h:inputSecret value="#{cadastroBean.senha}" id="senha" size="50" maxlength="100" required="true"/>
+				<h:outputLabel value="Senha:" for="senha" styleClass="label"/>
+				<h:inputSecret value="#{cadastroBean.senha}" id="senha" size="50" maxlength="100" required="true" styleClass="imputs"/>
 
 				<h:outputLabel value="Data de Nascimento:" for="dataNascimento"/>
 		    	<h:panelGroup>
-		    		<h:selectOneMenu value="#{cadastroBean.dia}">
+		    		<h:selectOneMenu value="#{cadastroBean.dia}" style="width: 100px">
 		    			<f:selectItems value="#{cadastroBean.dias}"/>	
 		    		</h:selectOneMenu>
-		    		<h:selectOneMenu value="#{cadastroBean.mes}">
+		    		<h:selectOneMenu value="#{cadastroBean.mes}" style="width: 150px">
 		    			<f:selectItems value="#{cadastroBean.meses}"/>	
 		    		</h:selectOneMenu>
-		    		<h:selectOneMenu value="#{cadastroBean.ano}">
+		    		<h:selectOneMenu value="#{cadastroBean.ano}" style="width: 100px">
 		    			<f:selectItems value="#{cadastroBean.anos}"/>	
 		    		</h:selectOneMenu>
-				</h:panelGroup>>
+				</h:panelGroup>
 				
-				<h:outputLabel value="sexo:" for="sexo"/>
-				<h:selectOneRadio value="#{cadastroBean.sexo}" id="sexo">
+				<h:outputLabel value="sexo:" for="sexo" style="width: 200px; text-align: center;"/>
+				<h:selectOneRadio value="#{cadastroBean.sexo}" id="sexo" style="display: inline-table;">
 					<f:selectItem itemValue="M" itemLabel="Masculino"/>
 					<f:selectItem itemValue="F" itemLabel="Feminino"/>
 				</h:selectOneRadio>				
-
-				<h:commandButton value="Cadastrar" action="#{cadastroBean.cadastrar}"/>
-				<c:if test="${not empty cadastroBean.msgCadastroInvalido}" >
+				<h:commandButton value="Cadastrar" action="#{cadastroBean.cadastrar}" style="width: 200px; text-align: center;"/>
+				<c:if test="${not empty cadastroBean.msgCadastroInvalido}">
 					<div class="erro">${cadastroBean.msgCadastroInvalido}</div>		
 				</c:if>
            	</h:panelGrid>			
 		</h:form>
-	</div>
 </h:body>
 </html>
