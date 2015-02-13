@@ -29,6 +29,8 @@ public class ReceitaBean extends EnttyManagerBean {
 	private Part arquivo;
 	private Integer usuarioId;
 	private String msg;
+	private List<Receita> receitas;
+	private String path;
 
 	public String postar() throws IOException{
 		try {
@@ -43,6 +45,7 @@ public class ReceitaBean extends EnttyManagerBean {
 			receitaService.postarReceita(receita);
 			
 			msg = "Cadastro realizado com sucesso.";
+			getReceitas();
 	
 		} catch (Exception e) {
 			msg = "Ocorreu um erro no cadastro da receita.";
@@ -50,7 +53,7 @@ public class ReceitaBean extends EnttyManagerBean {
 			
 		return "";
 	}
-
+	
 	private void salvaImagem() throws IOException {
 		imagem = new Date().getTime() + getNomeArquivo(arquivo);
 		String path = getExternalContext().getRealPath("" + java.io.File.separatorChar);
@@ -154,5 +157,24 @@ public class ReceitaBean extends EnttyManagerBean {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public List<Receita> getReceitas() {
+		ReceitaService receitaService = new ReceitaService(getEntityManager());
+		path = "image" + java.io.File.separatorChar;
+		receitas = receitaService.findReceitasByUsuario(usuarioId);
+		return receitas;
+	}
+
+	public void setReceitas(List<Receita> receitas) {
+		this.receitas = receitas;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

@@ -42,7 +42,7 @@
            	 <f:metadata>
         		<f:viewParam name="usuarioId" value="#{receitaBean.usuarioId}"/>
     		</f:metadata>
-          	</h:form>	
+        </h:form>	
 		<h:form enctype="multipart/form-data">
 			<h:panelGrid columns="1" style="text-align:center; width: 100%; background-color:#d3d3d3;">
 				<h1>NOVA RECEITA</h1>
@@ -63,6 +63,19 @@
            	 <f:metadata>
         		<f:viewParam name="usuarioId" value="#{receitaBean.usuarioId}"/>
     		</f:metadata>
-		</h:form>
+	      </h:form>	
+		
+			<h:outputLabel value="SUAS RECEITAS" style="display: inline-table;text-align:left !important;color:white;width:380PX;font-size:40px !important;background-color:#000000;"/>
+			<h:panelGrid columns="2" style="text-align:center; width: 100%; background-color:#000000;">
+			    <c:forEach var="receita" items="#{receitaBean.receitas}">
+		            <h:panelGroup style="text-align:right !important; width: 500px;display: inline-table;">
+			            <h:outputLabel value="#{receita.titulo}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important"/><br/> 
+			            <h:outputText value="#{receita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:15px !important"/>
+		            </h:panelGroup>  
+		            <h:panelGroup>
+		            	<h:graphicImage value="image/#{receita.imagem}" style="height:150px; width:150px;"/>
+		            </h:panelGroup>  
+		         </c:forEach>
+	         </h:panelGrid>
 </h:body>
 </html>
