@@ -7,12 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 
 public class EnttyManagerBean {
 	
+	private ExternalContext externalContext;
+
 	protected EntityManager getEntityManager() 
 	{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext = facesContext.getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 		EntityManager entityManager = (EntityManager) request.getAttribute("entityManager");
 		return entityManager;
+	}
+	
+	public ExternalContext getExternalContext() {
+		return externalContext;
 	}
 }

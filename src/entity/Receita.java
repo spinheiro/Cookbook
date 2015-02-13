@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "receita")
 public class Receita {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,8 +20,8 @@ public class Receita {
 	private String titulo;
 	
 	@Lob
-	@Column(name = "taxtoReceita", nullable = false)
-	private String taxtoReceita;
+	@Column(name = "textoReceita", nullable = false)
+	private String textoReceita;
 	
 	@Lob
 	@Column(name = "imagem")
@@ -30,6 +29,17 @@ public class Receita {
 
 	@ManyToOne
 	private Usuario usuario;
+
+	public Receita(){
+	}
+	
+	public Receita(String titulo, String textoReceita, String imagem, Usuario usuario) {
+		super();
+		this.titulo = titulo;
+		this.textoReceita = textoReceita;
+		this.imagem = imagem;
+		this.usuario = usuario;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -47,20 +57,28 @@ public class Receita {
 		this.titulo = titulo;
 	}
 
-	public String getTaxtoReceita() {
-		return taxtoReceita;
-	}
-
-	public void setTaxtoReceita(String taxtoReceita) {
-		this.taxtoReceita = taxtoReceita;
-	}
-
 	public String getImagem() {
 		return imagem;
 	}
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public String getTextoReceita() {
+		return textoReceita;
+	}
+
+	public void setTextoReceita(String textoReceita) {
+		this.textoReceita = textoReceita;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

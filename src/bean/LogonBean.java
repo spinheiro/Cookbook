@@ -2,6 +2,7 @@ package bean;
 
 import javax.faces.bean.ManagedBean;
 
+import entity.Usuario;
 import service.UsuarioService;
 
 @ManagedBean
@@ -15,9 +16,12 @@ public class LogonBean extends EnttyManagerBean{
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
 		if (usuarioService.autenticar(email, senha))
-			return "home";
+		{
+			Usuario usuario = usuarioService.findUsuarioByLoginSenha(email,senha);
+			return "/home.xhtml?faces-redirect=true&usuarioId=" + usuario.getId();
+		}
 		
-		falhaLogin = "Login inv·lido";
+		falhaLogin = "Login inv√°lido";
 		return "login";
 	}
 	

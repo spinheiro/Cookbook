@@ -22,14 +22,14 @@ public class CadastroBean extends EnttyManagerBean{
 	private Integer ano;	
 	private String sexo;
 	private String msgConfirmacaoEmail;
-	private String msgCadastroInvalido;
+	private String msg;
 	
 	public String cadastrar(){
 		
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
 		if(!email.equals(confirmacaoEmail)){
-			msgConfirmacaoEmail = "Confirmação de email não confere.";
+			msgConfirmacaoEmail = "Confirmaï¿½ï¿½o de email nï¿½o confere.";
 			return "login";
 		}
 		
@@ -37,8 +37,9 @@ public class CadastroBean extends EnttyManagerBean{
 		
 		try {
 			usuarioService.inserir(usuario);
+			msg = "Cadastro realizado com sucesso.";
 		} catch (Exception e) {
-			msgCadastroInvalido = "Ocorreu umerro em seu cadastro.";
+			msg = "Ocorreu um erro em seu cadastro.";
 		}
 		
 		return "login";
@@ -140,11 +141,11 @@ public class CadastroBean extends EnttyManagerBean{
 		this.msgConfirmacaoEmail = msgConfirmacaoEmail;
 	}
 
-	public String getMsgCadastroInvalido() {
-		return msgCadastroInvalido;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setMsgCadastroInvalido(String msgCadastroInvalido) {
-		this.msgCadastroInvalido = msgCadastroInvalido;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 }

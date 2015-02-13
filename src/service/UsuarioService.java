@@ -24,4 +24,13 @@ public class UsuarioService {
 	public void inserir(Usuario usuario){
 		entityManager.persist(usuario);
 	}
+	
+	public Usuario findUsuarioByLoginSenha(String login,String senha)
+	{
+		Query query = entityManager.createQuery("select u from Usuario u where email = :login and senha = :senha");
+		query.setParameter("login", login);
+		query.setParameter("senha", senha);
+		
+		return (Usuario) query.getSingleResult();
+	}
 }

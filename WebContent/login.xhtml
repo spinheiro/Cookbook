@@ -26,6 +26,9 @@
 		.erro{
 			color: red;
 		}
+		.msg{
+			color: blue;
+		}
 	</style>
 </h:head>
 <h:body>
@@ -40,7 +43,7 @@
 	
 					<h:commandButton value="Login" action="#{logonBean.autenticar}"/>
 					<c:if test="${not empty logonBean.falhaLogin}" >
-						<div class="erro">${logonBean.falhaLogin}</div>		
+						<div class="erro">#{logonBean.falhaLogin}</div>		
 					</c:if>
 				</h:panelGroup>
            	</h:panelGrid>			
@@ -48,7 +51,9 @@
 		<h:form>
 			<h:panelGrid columns="1" style="text-align:center; width: 100%; background-color:#d3d3d3;">
 				<h1>CADASTRE-SE</h1>
-			    
+			    <c:if test="${not empty cadastroBean.msg}" >
+					<div class="msg">#{cadastroBean.msg}</div>		
+				</c:if>
 			    <h:outputLabel value="Nome:" for="nome" styleClass="label"/>
 				<h:inputText value="#{cadastroBean.nome}" id="nome" size="50" maxlength="200" required="true" styleClass="imputs"/>
 
@@ -58,7 +63,7 @@
 				<h:outputLabel value="Confirmação do Email:" for="confirmacaoEmail" styleClass="label"/>
 				<h:inputText value="#{cadastroBean.confirmacaoEmail}" id="confirmacaoEmail" size="50" maxlength="200" required="true" styleClass="imputs"/>
 				<c:if test="${not empty cadastroBean.msgConfirmacaoEmail}" >
-					<div class="erro">${cadastroBean.msgConfirmacaoEmail}</div>		
+					<div class="erro">#{cadastroBean.msgConfirmacaoEmail}</div>		
 				</c:if>
 
 				<h:outputLabel value="Senha:" for="senha" styleClass="label"/>
@@ -83,9 +88,7 @@
 					<f:selectItem itemValue="F" itemLabel="Feminino"/>
 				</h:selectOneRadio>				
 				<h:commandButton value="Cadastrar" action="#{cadastroBean.cadastrar}" style="width: 200px; text-align: center;"/>
-				<c:if test="${not empty cadastroBean.msgCadastroInvalido}">
-					<div class="erro">${cadastroBean.msgCadastroInvalido}</div>		
-				</c:if>
+		
            	</h:panelGrid>			
 		</h:form>
 </h:body>
