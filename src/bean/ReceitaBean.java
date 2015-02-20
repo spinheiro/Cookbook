@@ -29,7 +29,9 @@ public class ReceitaBean extends EnttyManagerBean {
 	private Part arquivo;
 	private Integer usuarioId;
 	private String msg;
-	private List<Receita> receitas;
+	private String msgPesquisa;
+	private List<Receita> minhasReceitas;
+	private List<Receita> receitasPesquisa;
 	private String path;
 
 	public String postar() throws IOException{
@@ -45,7 +47,7 @@ public class ReceitaBean extends EnttyManagerBean {
 			receitaService.postarReceita(receita);
 			
 			msg = "Cadastro realizado com sucesso.";
-			getReceitas();
+			getMinhasReceitas();
 	
 		} catch (Exception e) {
 			msg = "Ocorreu um erro no cadastro da receita.";
@@ -103,7 +105,13 @@ public class ReceitaBean extends EnttyManagerBean {
 		}
 	}
 	public String pesquisar(){
-		return "home";
+		ReceitaService receitaService = new ReceitaService(getEntityManager());
+		receitasPesquisa = receitaService.findReceitasByTitulo(pesquisa);
+		
+		if(receitasPesquisa.size() == 0 )
+			msgPesquisa = "Não existem dados para a pesquisa informada: " + pesquisa ;
+		
+		return "";
 	}
 	
 	public String getTitulo() {
@@ -159,15 +167,15 @@ public class ReceitaBean extends EnttyManagerBean {
 		this.msg = msg;
 	}
 
-	public List<Receita> getReceitas() {
+	public List<Receita> getMinhasReceitas() {
 		ReceitaService receitaService = new ReceitaService(getEntityManager());
 		path = "image" + java.io.File.separatorChar;
-		receitas = receitaService.findReceitasByUsuario(usuarioId);
-		return receitas;
+		minhasReceitas = receitaService.findReceitasByUsuario(usuarioId);
+		return minhasReceitas;
 	}
 
-	public void setReceitas(List<Receita> receitas) {
-		this.receitas = receitas;
+	public void setMinhasReceitas(List<Receita> minhasReceitas) {
+		this.minhasReceitas = minhasReceitas;
 	}
 
 	public String getPath() {
@@ -176,5 +184,21 @@ public class ReceitaBean extends EnttyManagerBean {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public List<Receita> getReceitasPesquisa() {
+		return receitasPesquisa;
+	}
+
+	public void setReceitasPesquisa(List<Receita> receitasPesquisa) {
+		this.receitasPesquisa = receitasPesquisa;
+	}
+
+	public String getMsgPesquisa() {
+		return msgPesquisa;
+	}
+
+	public void setMsgPesquisa(String msgPesquisa) {
+		this.msgPesquisa = msgPesquisa;
 	}
 }

@@ -43,6 +43,22 @@
         		<f:viewParam name="usuarioId" value="#{receitaBean.usuarioId}"/>
     		</f:metadata>
         </h:form>	
+        
+		<h:panelGrid columns="2" style="text-align:center; width: 100%; background-color:#d3d3d3;">
+		    <c:forEach var="receitaPesquisa" items="#{receitaBean.receitasPesquisa}">
+	            <h:panelGroup style="text-align:right !important; width: 500px;display: inline-table;">
+		            <h:outputLabel value="#{receitaPesquisa.titulo}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important"/><br/> 
+		            <h:outputText value="#{receitaPesquisa.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:15px !important"/>
+	            </h:panelGroup>  
+	            <h:panelGroup>
+	            	<h:graphicImage value="image/#{receitaPesquisa.imagem}" style="height:150px; width:150px;"/>
+	            </h:panelGroup>  
+	         </c:forEach>
+			<c:if test="${not empty receitaBean.msgPesquisa}" >
+				<div class="msg">#{receitaBean.msgPesquisa}</div>		
+			</c:if>
+        </h:panelGrid>
+        
 		<h:form enctype="multipart/form-data">
 			<h:panelGrid columns="1" style="text-align:center; width: 100%; background-color:#d3d3d3;">
 				<h1>NOVA RECEITA</h1>
@@ -67,13 +83,13 @@
 		
 			<h:outputLabel value="SUAS RECEITAS" style="display: inline-table;text-align:left !important;color:white;width:380PX;font-size:40px !important;background-color:#000000;"/>
 			<h:panelGrid columns="2" style="text-align:center; width: 100%; background-color:#000000;">
-			    <c:forEach var="receita" items="#{receitaBean.receitas}">
+			    <c:forEach var="minhaReceita" items="#{receitaBean.minhasReceitas}">
 		            <h:panelGroup style="text-align:right !important; width: 500px;display: inline-table;">
-			            <h:outputLabel value="#{receita.titulo}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important"/><br/> 
-			            <h:outputText value="#{receita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:15px !important"/>
+			            <h:outputLabel value="#{minhaReceita.titulo}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important"/><br/> 
+			            <h:outputText value="#{minhaReceita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:15px !important"/>
 		            </h:panelGroup>  
 		            <h:panelGroup>
-		            	<h:graphicImage value="image/#{receita.imagem}" style="height:150px; width:150px;"/>
+		            	<h:graphicImage value="image/#{minhaReceita.imagem}" style="height:150px; width:150px;"/>
 		            </h:panelGroup>  
 		         </c:forEach>
 	         </h:panelGrid>
