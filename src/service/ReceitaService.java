@@ -31,4 +31,11 @@ public class ReceitaService {
 		
 		return query.getResultList();
 	}
+
+	public Receita findReceitas(Receita receita) {
+		Query query = entityManager.createQuery("select r from Receita r where r.id = :receitaId");
+		query.setParameter("receitaId", receita.getId());
+
+		return (Receita) query.getSingleResult();
+	}
 }

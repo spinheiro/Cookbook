@@ -22,5 +22,11 @@
 		<managed-bean-class>bean.ReceitaBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>comentarioBean</managed-bean-name>
+		<managed-bean-class>bean.ComentarioBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

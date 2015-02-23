@@ -29,7 +29,7 @@ public class CadastroBean extends EnttyManagerBean{
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
 		if(!email.equals(confirmacaoEmail)){
-			msgConfirmacaoEmail = "Confirma��o de email n�o confere.";
+			msgConfirmacaoEmail = "Confirmação de email não confere.";
 			return "login";
 		}
 		

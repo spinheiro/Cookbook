@@ -29,9 +29,7 @@ public class ReceitaBean extends EnttyManagerBean {
 	private Part arquivo;
 	private Integer usuarioId;
 	private String msg;
-	private String msgPesquisa;
-	private List<Receita> minhasReceitas;
-	private List<Receita> receitasPesquisa;
+	private List<Receita> receitas;
 	private String path;
 
 	public String postar() throws IOException{
@@ -47,7 +45,9 @@ public class ReceitaBean extends EnttyManagerBean {
 			receitaService.postarReceita(receita);
 			
 			msg = "Cadastro realizado com sucesso.";
-			getMinhasReceitas();
+			titulo = "";
+			textoReceita = "";
+			getReceitas();
 	
 		} catch (Exception e) {
 			msg = "Ocorreu um erro no cadastro da receita.";
@@ -104,12 +104,13 @@ public class ReceitaBean extends EnttyManagerBean {
 			throw new ValidatorException(msgs);
 		}
 	}
+	
 	public String pesquisar(){
 		ReceitaService receitaService = new ReceitaService(getEntityManager());
-		receitasPesquisa = receitaService.findReceitasByTitulo(pesquisa);
+		receitas = receitaService.findReceitasByTitulo(pesquisa);
 		
-		if(receitasPesquisa.size() == 0 )
-			msgPesquisa = "Não existem dados para a pesquisa informada: " + pesquisa ;
+		if(receitas.size() == 0 )
+			msg = "Não existe dados para a pesquisa informada: " + pesquisa ;
 		
 		return "";
 	}
@@ -117,12 +118,15 @@ public class ReceitaBean extends EnttyManagerBean {
 	public String getTitulo() {
 		return titulo;
 	}
+	
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
 	public String getImagem() {
 		return imagem;
 	}
+	
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
@@ -167,15 +171,23 @@ public class ReceitaBean extends EnttyManagerBean {
 		this.msg = msg;
 	}
 
-	public List<Receita> getMinhasReceitas() {
-		ReceitaService receitaService = new ReceitaService(getEntityManager());
-		path = "image" + java.io.File.separatorChar;
-		minhasReceitas = receitaService.findReceitasByUsuario(usuarioId);
-		return minhasReceitas;
+	public List<Receita> getReceitas() {
+		if(usuarioId != null && (pesquisa == null || "".equals(pesquisa)) ){
+			ReceitaService receitaService = new ReceitaService(getEntityManager());
+			path = "image" + java.io.File.separatorChar;
+			receitas = receitaService.findReceitasByUsuario(usuarioId);
+		}
+		return receitas;
+	}
+	
+	public String teste(){
+		
+		
+		return "";
 	}
 
-	public void setMinhasReceitas(List<Receita> minhasReceitas) {
-		this.minhasReceitas = minhasReceitas;
+	public void setReceitas(List<Receita> receitas) {
+		this.receitas = receitas;
 	}
 
 	public String getPath() {
@@ -184,21 +196,5 @@ public class ReceitaBean extends EnttyManagerBean {
 
 	public void setPath(String path) {
 		this.path = path;
-	}
-
-	public List<Receita> getReceitasPesquisa() {
-		return receitasPesquisa;
-	}
-
-	public void setReceitasPesquisa(List<Receita> receitasPesquisa) {
-		this.receitasPesquisa = receitasPesquisa;
-	}
-
-	public String getMsgPesquisa() {
-		return msgPesquisa;
-	}
-
-	public void setMsgPesquisa(String msgPesquisa) {
-		this.msgPesquisa = msgPesquisa;
 	}
 }
