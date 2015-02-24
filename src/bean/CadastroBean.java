@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.bean.ManagedBean;
 
@@ -33,6 +35,11 @@ public class CadastroBean extends EnttyManagerBean{
 			return "login";
 		}
 		
+		if(!validarEmail(email)){
+			msgConfirmacaoEmail = "Email iválido.";
+			return "login";
+		}
+		
 		Usuario usuario = new Usuario(null, nome, confirmacaoEmail, senha, sexo, populaDataNascimento());
 		
 		try {
@@ -43,6 +50,16 @@ public class CadastroBean extends EnttyManagerBean{
 		}
 		
 		return "login";
+	}
+	
+	private boolean validarEmail(String email) {
+		if ((email == null) || (email.trim().length() == 0))
+			return false;
+	
+		String emailPattern = "\\b(^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\\.[A-Za-z0-9-]+)*((\\.[A-Za-z0-9]{2,})|(\\.[A-Za-z0-9]{2,}\\.[A-Za-z0-9]{2,}))$)\\b";
+		Pattern pattern = Pattern.compile(emailPattern, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
 	}
 
 	private Calendar populaDataNascimento() {

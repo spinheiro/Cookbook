@@ -32,7 +32,6 @@ public class ReceitaBean extends EnttyManagerBean {
 	private Long usuarioId;
 	private String msg;
 	private List<Receita> receitas;
-	private String path;
 
 	public String postar() throws IOException{
 		try {
@@ -54,7 +53,7 @@ public class ReceitaBean extends EnttyManagerBean {
 			msg = "Ocorreu um erro no cadastro da receita.";
 		}
 			
-		return "";
+		return "/home.xhtml?faces-redirect=true&usuarioId=" + usuarioId;
 	}
 	
 	private void salvaImagem() throws IOException {
@@ -107,23 +106,21 @@ public class ReceitaBean extends EnttyManagerBean {
 	}
 	
 	public String pesquisar(){
-		ReceitaService receitaService = new ReceitaService(getEntityManager());
-		receitas = receitaService.findReceitasByTituloAndUsusarioId(pesquisa, usuarioId);
-		calculaMediaNota();
-		
-		if(receitas.size() == 0 )
+		getReceitas();
+		if(receitas== null || receitas.size() == 0 )
 			msg = "Não existe dados para a pesquisa informada: " + pesquisa ;
 		
-		return "home";
+		return "/home.xhtml?faces-redirect=true&usuarioId=" + usuarioId + "&pesquisa=" + pesquisa;
 	}
 	
 	public List<Receita> getReceitas() {
-		if(usuarioId != null && (pesquisa == null || "".equals(pesquisa)) ){
-			ReceitaService receitaService = new ReceitaService(getEntityManager());
-			path = "image" + java.io.File.separatorChar;
-			receitas = receitaService.findReceitasByUsuario(usuarioId);
-			calculaMediaNota();
-		}
+		ReceitaService receitaService = new ReceitaService(getEntityManager());
+		if(pesquisa != null && !"".equals(pesquisa))
+			receitas = receitaService.findReceitasByTitulo(pesquisa);
+		else
+			receitas = receitaService.findReceitasByTitulo(null);
+		
+		calculaMediaNota();
 		return receitas;
 	}
 
@@ -204,13 +201,5 @@ public class ReceitaBean extends EnttyManagerBean {
 
 	public void setReceitas(List<Receita> receitas) {
 		this.receitas = receitas;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
 	}
 }

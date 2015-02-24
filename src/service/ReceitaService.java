@@ -26,10 +26,14 @@ public class ReceitaService {
 		return query.getResultList();
 	}
 
-	public List<Receita> findReceitasByTituloAndUsusarioId(String titulo, Long usuarioId) {
-		Query query = entityManager.createQuery("select r from Receita r where r.usuario.id = :usuarioId and upper(r.titulo) like '%" + titulo.toUpperCase() +"%'");
-		query.setParameter("usuarioId", usuarioId);
+	public List<Receita> findReceitasByTitulo(String titulo) {
+		StringBuffer qry = new StringBuffer("select r from Receita r ");
+		qry.append("left join r.usuario u ");
+		if(titulo != null && !"".equals(titulo))
+			qry.append("where upper(r.titulo) like '%" + titulo.toUpperCase() +"%' ");
+		qry.append("order by r.id desc ");
 		
+		Query query = entityManager.createQuery(qry.toString());
 		return query.getResultList();
 	}
 

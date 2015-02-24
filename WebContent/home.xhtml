@@ -14,6 +14,8 @@
 		}
 		.msg{
 			color: blue;
+			text-align:center;
+			width: 500px;
 		}
 	</style>
 </h:head>
@@ -32,6 +34,7 @@
            	</h:panelGrid>
            	<f:metadata>
         		<f:viewParam name="usuarioId" value="#{receitaBean.usuarioId}"/>
+        		<f:viewParam name="pesquisa" value="#{receitaBean.pesquisa}"/>
     		</f:metadata>
         </h:form>	
         
@@ -63,11 +66,12 @@
 					<h:panelGroup style="margin-top:1% !important;margin-left: 25% !important; margin-right:auto; width: 50%;display: inline-table; background-color:#9e9e9e;">
 						<h:panelGrid columns="2">
 							<h:panelGroup>				
-								<h:outputLink value="receita.xhtml" style="margin-top:1% !important;margin-left: auto; margin-right: auto;display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important">
+								<h:outputLink value="receita.xhtml" style="margin-top:1% !important;margin-left: auto;display: inline-table;text-align:left !important;color:blue;width:50%;font-size:30px !important;">
 									#{receita.titulo}
 									 <f:param name="receitaId" value="#{receita.id}" />
-									 <f:param name="usuarioId" value="#{receita.usuario.id}" />
-								</h:outputLink><br/> 
+									 <f:param name="usuarioId" value="#{receitaBean.usuarioId}" />
+								</h:outputLink><br/>
+								<h:outputLabel value="Por: #{receita.usuario.nome}" style="text-align:left !important;font-size:20px !important;"/><br/>							
 								<h:outputText value="#{receita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:600px;font-size:15px !important"/>
 							</h:panelGroup>
 							<h:panelGroup>
