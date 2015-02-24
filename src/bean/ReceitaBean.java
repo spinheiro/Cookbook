@@ -27,7 +27,7 @@ public class ReceitaBean extends EnttyManagerBean {
 	private String imagem;
 	private String pesquisa;
 	private Part arquivo;
-	private Integer usuarioId;
+	private Long usuarioId;
 	private String msg;
 	private List<Receita> receitas;
 	private String path;
@@ -112,7 +112,7 @@ public class ReceitaBean extends EnttyManagerBean {
 		if(receitas.size() == 0 )
 			msg = "Não existe dados para a pesquisa informada: " + pesquisa ;
 		
-		return "";
+		return "home";
 	}
 	
 	public String getTitulo() {
@@ -155,11 +155,11 @@ public class ReceitaBean extends EnttyManagerBean {
 		this.arquivo = arquivo;
 	}
 
-	public Integer getUsuarioId() {
+	public Long getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(Integer usuarioId) {
+	public void setUsuarioId(Long usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 

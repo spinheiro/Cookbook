@@ -66,11 +66,10 @@
 		<h:panelGrid columns="2" style="text-align:center; width: 100%; background-color:#000000;">
 			<c:forEach var="receita" items="#{receitaBean.receitas}">
 				<h:panelGroup style="text-align:right !important; width: 500px;display: inline-table;">
-					<h:outputLink value="receita.xhtml?receitaId=1" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important">
+					<h:outputLink value="receita.xhtml?receita.id=#{receita.id}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important">
 						#{receita.titulo}
 					</h:outputLink><br/> 
 					
-					<a href="receita.xhtml?receitaId=1">#{receita.titulo}</a>
 					<h:outputText value="#{receita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:15px !important"/>
 				</h:panelGroup>  
 				<h:panelGroup>

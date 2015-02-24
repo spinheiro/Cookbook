@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Receita {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "titulo", length=200, nullable = false)
 	private String titulo;
@@ -41,11 +41,11 @@ public class Receita {
 		this.usuario = usuario;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

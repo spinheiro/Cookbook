@@ -22,7 +22,10 @@ public class ComentarioService {
 	
 	@SuppressWarnings("unchecked")
 	public List<Comentario> obterComentario(Receita receita){
-		Query query = entityManager.createQuery("select c from Comentario c where c.receita.id = :receitaId");
+		Query query = entityManager.createQuery("select c from Comentario c "
+				+ "left join c.usuario u "
+				+ "where c.receita.id = :receitaId "
+				+ "order by c.id desc");
 		query.setParameter("receitaId", receita.getId());
 		
 		return query.getResultList();

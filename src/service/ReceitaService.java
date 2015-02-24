@@ -19,7 +19,7 @@ public class ReceitaService {
 		entityManager.persist(receita);
 	}
 
-	public List<Receita> findReceitasByUsuario(Integer usuarioId) {
+	public List<Receita> findReceitasByUsuario(Long usuarioId) {
 		Query query = entityManager.createQuery("select r from Receita r where usuario_id = :usuarioId");
 		query.setParameter("usuarioId", usuarioId);
 		
