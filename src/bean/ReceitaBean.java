@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.Part;
 
+import service.ComentarioService;
 import service.ReceitaService;
 import entity.Receita;
 import entity.Usuario;
@@ -35,7 +37,6 @@ public class ReceitaBean extends EnttyManagerBean {
 	public String postar() throws IOException{
 		try {
 			ReceitaService receitaService = new ReceitaService(getEntityManager());
-			
 			if(arquivo != null) salvaImagem();
 			
 			Usuario usuario = new Usuario();
@@ -44,10 +45,10 @@ public class ReceitaBean extends EnttyManagerBean {
 			Receita receita = new Receita(titulo, textoReceita, imagem, usuario);
 			receitaService.postarReceita(receita);
 			
+			getReceitas();
 			msg = "Cadastro realizado com sucesso.";
 			titulo = "";
 			textoReceita = "";
-			getReceitas();
 	
 		} catch (Exception e) {
 			msg = "Ocorreu um erro no cadastro da receita.";
@@ -107,12 +108,42 @@ public class ReceitaBean extends EnttyManagerBean {
 	
 	public String pesquisar(){
 		ReceitaService receitaService = new ReceitaService(getEntityManager());
-		receitas = receitaService.findReceitasByTitulo(pesquisa);
+		receitas = receitaService.findReceitasByTituloAndUsusarioId(pesquisa, usuarioId);
+		calculaMediaNota();
 		
 		if(receitas.size() == 0 )
 			msg = "Não existe dados para a pesquisa informada: " + pesquisa ;
 		
 		return "home";
+	}
+	
+	public List<Receita> getReceitas() {
+		if(usuarioId != null && (pesquisa == null || "".equals(pesquisa)) ){
+			ReceitaService receitaService = new ReceitaService(getEntityManager());
+			path = "image" + java.io.File.separatorChar;
+			receitas = receitaService.findReceitasByUsuario(usuarioId);
+			calculaMediaNota();
+		}
+		return receitas;
+	}
+
+	private void calculaMediaNota() {
+		ComentarioService comentarioService = new ComentarioService(getEntityManager());
+		for (Receita receita : receitas) 
+			receita.setMediaNota(convertDoubleToString(comentarioService.getMediaNotaByReceitaId(receita.getId())));
+	}
+	
+	private String convertDoubleToString(Double number)
+	{
+		if(number != null)
+		{
+			NumberFormat formatter = NumberFormat.getInstance();
+			formatter.setGroupingUsed(true);
+			formatter.setMaximumFractionDigits(2);
+			formatter.setMinimumFractionDigits(2);
+			return formatter.format(number.doubleValue());
+		}else
+			return " - ";
 	}
 	
 	public String getTitulo() {
@@ -169,21 +200,6 @@ public class ReceitaBean extends EnttyManagerBean {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
-	}
-
-	public List<Receita> getReceitas() {
-		if(usuarioId != null && (pesquisa == null || "".equals(pesquisa)) ){
-			ReceitaService receitaService = new ReceitaService(getEntityManager());
-			path = "image" + java.io.File.separatorChar;
-			receitas = receitaService.findReceitasByUsuario(usuarioId);
-		}
-		return receitas;
-	}
-	
-	public String teste(){
-		
-		
-		return "";
 	}
 
 	public void setReceitas(List<Receita> receitas) {

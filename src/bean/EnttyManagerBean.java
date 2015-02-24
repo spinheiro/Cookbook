@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -18,7 +20,12 @@ public class EnttyManagerBean {
 		return entityManager;
 	}
 	
-	public ExternalContext getExternalContext() {
+	protected String getParam(String paramName) {
+		Map<String, String> params =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		return params.get(paramName);
+	}
+	
+	protected ExternalContext getExternalContext() {
 		return externalContext;
 	}
 }

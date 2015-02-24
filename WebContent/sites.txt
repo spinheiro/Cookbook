@@ -1,2 +1,0 @@
-https://jsflive.wordpress.com/2013/04/23/jsf22-file-upload/
-http://www.javatutorials.co.in/jsf-2-2-file-upload-example-using-hinputfile/

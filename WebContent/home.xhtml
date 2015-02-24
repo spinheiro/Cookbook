@@ -10,15 +10,7 @@
 <h:head>
 	<style type="text/css">
 		body{
-			margin: 0px;
 			background-color: #d3d3d3;
-		}
-		#divCadastro{
-			text-align: center;
-			background-color:#d3d3d3;
-		}
-		.erro{
-			color: red;
 		}
 		.msg{
 			color: blue;
@@ -44,38 +36,48 @@
         </h:form>	
         
 		<h:form enctype="multipart/form-data">
-			<h:panelGrid columns="1" style="text-align:center; width: 100%; background-color:#d3d3d3;">
-				<c:if test="${not empty receitaBean.msg}" >
-					<div class="msg">#{receitaBean.msg}</div>		
-				</c:if>
-				<h1>NOVA RECEITA</h1>
-			    <h:outputLabel value="Título:" for="titulo"/>
-				<h:inputText value="#{receitaBean.titulo}" id="titulo" size="50" maxlength="200" required="true" style="width: 500px;"/>
-
-		    	<h:outputLabel value="Texto da Receita:" for="textoReceita"/>
-				<h:inputTextarea value="#{receitaBean.textoReceita}" id="textoReceita" required="true" style="width: 500px; height: 150px;"/>
-
-				<h:panelGroup columns="1" style="text-align:right; width: 500px;display: inline-table;">
-	        		<h:inputFile label="Arquivo JPG" value="#{receitaBean.arquivo}" validator="#{receitaBean.validarArquivo}" mode="simple"/>
-					<h:commandButton value="Postar" action="#{receitaBean.postar}" style="height:30px; width:100px; horizontal-align:left;"/>
-	           	</h:panelGroup>			
+			<h:panelGrid columns="1" style="margin-left: auto; margin-right: auto; width: 100%; background-color:#d3d3d3;">
+				<h:panelGroup style="margin-left: 35% !important; margin-right:auto;align:center !important; width: 600px;display: inline-table; background-color:#d3d3d3;">
+					<c:if test="${not empty receitaBean.msg}" >
+						<div class="msg">#{receitaBean.msg}</div>		
+					</c:if>
+					<h1 style="text-align:center;width: 500px;">NOVA RECEITA</h1>
+				    <h:outputLabel value="Título:" for="titulo" style="display:inline-table;margin-left:auto; margin-right:auto;text-align:center !important;" /><br/>
+					<h:inputText value="#{receitaBean.titulo}" id="titulo" size="50" maxlength="200" required="true" style="width: 500px;text-align:left;"/><br/>
+	
+			    	<h:outputLabel value="Texto da Receita:" for="textoReceita"/>
+					<h:inputTextarea value="#{receitaBean.textoReceita}" id="textoReceita" required="true" style="width: 500px; height: 150px;"/>
+	
+					<h:panelGroup columns="1" style="text-align:right; width: 500px;display: inline-table;">
+		        		<h:inputFile label="Arquivo JPG" value="#{receitaBean.arquivo}" validator="#{receitaBean.validarArquivo}" mode="simple"/>
+						<h:commandButton value="Postar" action="#{receitaBean.postar}" style="height:30px; width:100px; horizontal-align:left;"/>
+		           	</h:panelGroup>
+		         </h:panelGroup>			
            	</h:panelGrid>		
 	      </h:form>	
 		
-		<h:outputLabel value="SUAS RECEITAS" style="display: inline-table;text-align:left !important;color:white;width:380PX;font-size:40px !important;background-color:#000000;"/>
-		<h:panelGrid columns="2" style="text-align:center; width: 100%; background-color:#000000;">
-			<c:forEach var="receita" items="#{receitaBean.receitas}">
-				<h:panelGroup style="text-align:right !important; width: 500px;display: inline-table;">
-					<h:outputLink value="receita.xhtml?receita.id=#{receita.id}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important">
-						#{receita.titulo}
-					</h:outputLink><br/> 
-					
-					<h:outputText value="#{receita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:50%;font-size:15px !important"/>
-				</h:panelGroup>  
-				<h:panelGroup>
-					<h:graphicImage value="image/#{receita.imagem}" style="height:150px; width:150px;"/>
-				</h:panelGroup>  
-			</c:forEach>
-		</h:panelGrid>
+		<c:if test="${not empty receitaBean.receitas}" >
+			<h:outputLabel value="SUAS RECEITAS" style="display: inline-table;text-align:left !important;color:white;width:380PX;font-size:40px !important;background-color:#000000;"/>
+			<h:panelGrid columns="1" style="margin-left: auto; margin-right: auto;align:center; width: 100%; background-color:#000000;">
+				<c:forEach var="receita" items="#{receitaBean.receitas}">
+					<h:panelGroup style="margin-top:1% !important;margin-left: 25% !important; margin-right:auto; width: 50%;display: inline-table; background-color:#9e9e9e;">
+						<h:panelGrid columns="2">
+							<h:panelGroup>				
+								<h:outputLink value="receita.xhtml" style="margin-top:1% !important;margin-left: auto; margin-right: auto;display: inline-table;text-align:left !important;color:white;width:50%;font-size:30px !important">
+									#{receita.titulo}
+									 <f:param name="receitaId" value="#{receita.id}" />
+									 <f:param name="usuarioId" value="#{receita.usuario.id}" />
+								</h:outputLink><br/> 
+								<h:outputText value="#{receita.textoReceita}" style="display: inline-table;text-align:left !important;color:white;width:600px;font-size:15px !important"/>
+							</h:panelGroup>
+							<h:panelGroup>
+								<h:outputLabel value="Nota: #{receita.mediaNota}" style="margin-left: 30% !important; margin-right:auto;display: inline-table;text-align:left !important;color:white;font-size:20px !important" /><br/>
+								<h:graphicImage value="image/#{receita.imagem}" style="margin-left: 25% !important; margin-right:auto;align:right !important;  height:150px; width:150px;"/>
+							</h:panelGroup>
+						</h:panelGrid>			
+					</h:panelGroup>
+				</c:forEach>
+			</h:panelGrid>
+		</c:if>
 	</h:body>
 </html>

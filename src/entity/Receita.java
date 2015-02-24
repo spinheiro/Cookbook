@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "receita")
@@ -29,6 +30,9 @@ public class Receita {
 
 	@ManyToOne
 	private Usuario usuario;
+
+	@Transient
+	private String mediaNota;
 
 	public Receita(){
 	}
@@ -80,5 +84,12 @@ public class Receita {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
+	public String getMediaNota() {
+		return mediaNota;
+	}
+
+	public void setMediaNota(String mediaNota) {
+		this.mediaNota = mediaNota;
+	}
 }

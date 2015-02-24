@@ -30,4 +30,11 @@ public class ComentarioService {
 		
 		return query.getResultList();
 	}
+
+	public Double getMediaNotaByReceitaId(Long receitaId) {
+		Query query = entityManager.createQuery("select avg(c.nota) from Comentario c where c.receita.id = :receitaId ");
+		query.setParameter("receitaId", receitaId);
+		
+		return (Double) query.getSingleResult();
+	}
 }

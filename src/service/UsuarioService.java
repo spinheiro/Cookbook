@@ -33,4 +33,11 @@ public class UsuarioService {
 		
 		return (Usuario) query.getSingleResult();
 	}
+
+	public Usuario findById(Long usuarioId) {
+		Query query = entityManager.createQuery("select u from Usuario u where u.id = :usuarioId");
+		query.setParameter("usuarioId", usuarioId);
+		
+		return (Usuario) query.getSingleResult();
+	}
 }

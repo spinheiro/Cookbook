@@ -15,8 +15,7 @@ public class LogonBean extends EnttyManagerBean{
 	public String autenticar(){
 		UsuarioService usuarioService = new UsuarioService(getEntityManager());
 		
-		if (usuarioService.autenticar(email, senha))
-		{
+		if (usuarioService.autenticar(email, senha)){
 			Usuario usuario = usuarioService.findUsuarioByLoginSenha(email,senha);
 			return "/home.xhtml?faces-redirect=true&usuarioId=" + usuario.getId();
 		}
@@ -37,11 +36,9 @@ public class LogonBean extends EnttyManagerBean{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
 	public String getFalhaLogin() {
 		return falhaLogin;
 	}
-
 	public void setFalhaLogin(String falhaLogin) {
 		this.falhaLogin = falhaLogin;
 	}
